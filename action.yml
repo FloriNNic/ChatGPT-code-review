@@ -4,8 +4,11 @@ branding:
   icon: 'check-square'
   color: 'green'
 inputs:
-  commitSHA:
-    description: 'The commit to review.'
+  commitMessage:
+    description: 'The commit message'
+    required: true
+  commitUrl:
+    description: 'The commit full URL'
     required: true
 
 runs:
@@ -22,5 +25,5 @@ runs:
       shell: bash
 
     - name: Build with Gradle
-      run: cd build; ./gradlew runChatGPT -PcommitSHA={{ inputs.commitSHA }}  --info --stacktrace --build-cache
+      run: cd build; ./gradlew runChatGPT -PcommitMessage={{ inputs.commitMessage }} -PcommitUrl={{ inputs.commitUrl }} --info --stacktrace --build-cache
       shell: bash
