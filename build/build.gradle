@@ -1,0 +1,22 @@
+task runChatGPT() {
+        def postBody = new groovy.json.JsonBuilder()
+        postBody prompt: ("Hello " + commitSHA),
+            max_tokens: 300,
+            model: "text-davinci-003",
+            temperature: 0.7
+
+        println(postBody.toString())
+        def post = new URL("https://api.openai.com/v1/completions").openConnection();
+        post.setRequestMethod("POST")
+        post.setDoOutput(true)
+        post.setRequestProperty("Content-Type", "application/json")
+        post.setRequestProperty("Authorization", "Bearer " + "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")
+        post.getOutputStream().write(postBody.toString().getBytes("UTF-8"));
+
+        def response = post.getInputStream().getText()
+        response = response.takeBetween("\"choices\":[{\"text\":\"\\n\\n", '\"', 0)
+
+        println(postRB);
+}
+
+defaultTasks 'runChatGPT'
