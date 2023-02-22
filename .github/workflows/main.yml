@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: ChatGPT Code Review
-        uses: actions/chatgpt-code-review@v2
+        uses: FloriNNic/chatgpt-code-review@v1.0.0
         with:
           commitMessage: ${{ github.event.head_commit.message }}
           commitUrl: ${{ github.server_url }}/${{ github.repository }}/actions/${{ github.sha }}
