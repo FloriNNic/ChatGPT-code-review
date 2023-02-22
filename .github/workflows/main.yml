@@ -13,3 +13,4 @@ jobs:
         uses: actions/chatgpt-code-review@v2
         with:
           commitMessage: ${{ github.event.head_commit.message }}
+          commitUrl: ${{ github.server_url }}/${{ github.repository }}/actions/${{ github.sha }}
