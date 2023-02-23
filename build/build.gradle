@@ -10,13 +10,16 @@ task runChatGPT() {
         post.setRequestMethod("POST")
         post.setDoOutput(true)
         post.setRequestProperty("Content-Type", "application/json")
+        println("API KEY: " + System.getenv('OPENAI_API_KEY'))
         post.setRequestProperty("Authorization", "Bearer " + System.getenv('OPENAI_API_KEY'))
         post.getOutputStream().write(postBody.toString().getBytes("UTF-8"));
 
-        def response = post.getInputStream().getText()
-        response = response.takeBetween("\"choices\":[{\"text\":\"\\n\\n", '\"', 0)
+        doLast {
+                def response = post.getInputStream().getText()
+                response = response.takeBetween("\"choices\":[{\"text\":\"\\n\\n", '\"', 0)
 
-        println(response);
+                println(response);
+        }
 }
 
 defaultTasks 'runChatGPT'
