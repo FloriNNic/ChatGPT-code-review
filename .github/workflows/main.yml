@@ -13,4 +13,4 @@ jobs:
         uses: FloriNNic/ChatGPT-code-review@v1.0.0
         with:
           commitMessage: ${{ github.event.head_commit.message }}
-          commitUrl: "https://github.com/${{ github.repository }}/actions/${{ github.sha }}"
+          commitUrl: ${{ github.server_url }}/${{ github.repository }}/actions/${{ github.sha }}
