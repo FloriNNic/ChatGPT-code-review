@@ -26,4 +26,4 @@ runs:
 
     - name: Build with Gradle
       run: cd build; ./gradlew runChatGPT -PcommitMessage=${{ inputs.commitMessage }} -PcommitUrl=${{ inputs.commitUrl }} --info --stacktrace --build-cache
-      shell: bash
+      shell: cmd
