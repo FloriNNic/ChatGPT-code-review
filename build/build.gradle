@@ -5,7 +5,7 @@ task runChatGPT() {
             model: "text-davinci-003",
             temperature: 0.7
 
-        println(postBody.toString())
+        println("POST BODY: " + postBody.toString())
         def post = new URL("https://api.openai.com/v1/completions").openConnection();
         post.setRequestMethod("POST")
         post.setDoOutput(true)
