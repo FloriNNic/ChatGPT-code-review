@@ -10,7 +10,7 @@ task runChatGPT() {
                 println("POST BODY: " + postBody.toString())
                 println("API KEY: " + System.getenv('OPENAI_API_KEY'))
 
-                def post = new URL("https://api.openai.com/v1/completions").openConnection();
+                post = new URL("https://api.openai.com/v1/completions").openConnection();
                 post.setRequestMethod("POST")
                 post.setDoOutput(true)
                 post.setRequestProperty("Content-Type", "application/json")
