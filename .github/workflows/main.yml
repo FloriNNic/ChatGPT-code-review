@@ -1,5 +1,4 @@
 name: Code review on Push
-
 on:
   push:
     branches: [main]
