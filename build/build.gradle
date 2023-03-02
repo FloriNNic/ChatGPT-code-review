@@ -1,5 +1,5 @@
 task runChatGPT() {
-        def post = null
+        def post = null 
         doFirst {
                 def postBody = new groovy.json.JsonBuilder()
                 postBody prompt: ("Please review the commit " + commitUrl),
