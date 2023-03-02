@@ -1,0 +1,29 @@
+name: Code Review with ChatGPT bot
+description: ChatGPT Code Review
+branding:
+  icon: 'check-square'
+  color: 'green'
+inputs:
+  commitMessage:
+    description: 'The commit message'
+    required: true
+  commitUrl:
+    description: 'The commit full URL'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout main repo.
+      uses: actions/checkout@v3.3.0
+
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Make gradlew executable
+      run: chmod +x ./build/gradlew
+      shell: bash
+
+    - name: Build with Gradle
+      run: cd build; ./gradlew runChatGPT -PcommitMessage="${{ inputs.commitMessage }}" -PcommitUrl=${{ inputs.commitUrl }} --info --stacktrace --build-cache
+      shell: bash
