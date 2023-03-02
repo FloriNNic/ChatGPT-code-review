@@ -1,20 +1,22 @@
 task runChatGPT() {
-        def postBody = new groovy.json.JsonBuilder()
-        postBody prompt: ("Please review the commit " + commitUrl),
-            max_tokens: 300,
-            model: "text-davinci-003",
-            temperature: 0.7
+        doFirst {
+                def postBody = new groovy.json.JsonBuilder()
+                postBody prompt: ("Please review the commit " + commitUrl),
+                    max_tokens: 300,
+                    model: "text-davinci-003",
+                    temperature: 0.7
 
-        println("POST BODY: " + postBody.toString())
-        println("API KEY: " + System.getenv('OPENAI_API_KEY'))
-        
-        def post = new URL("https://api.openai.com/v1/completions").openConnection();
-        post.setRequestMethod("POST")
-        post.setDoOutput(true)
-        post.setRequestProperty("Content-Type", "application/json")
-        
-        post.setRequestProperty("Authorization", "Bearer " + System.getenv('OPENAI_API_KEY'))
-        post.getOutputStream().write(postBody.toString().getBytes("UTF-8"));
+                println("POST BODY: " + postBody.toString())
+                println("API KEY: " + System.getenv('OPENAI_API_KEY'))
+
+                def post = new URL("https://api.openai.com/v1/completions").openConnection();
+                post.setRequestMethod("POST")
+                post.setDoOutput(true)
+                post.setRequestProperty("Content-Type", "application/json")
+
+                post.setRequestProperty("Authorization", "Bearer " + System.getenv('OPENAI_API_KEY'))
+                post.getOutputStream().write(postBody.toString().getBytes("UTF-8"));
+        }
 
         doLast {
                 def response = post.getInputStream().getText()
