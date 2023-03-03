@@ -1,6 +1,4 @@
 task runChatGPT() {
-        def post = null 
-        doFirst {
                 def postBody = new groovy.json.JsonBuilder()
                 postBody prompt: ("Please review the commit " + commitUrl),
                     max_tokens: 300,
@@ -10,19 +8,20 @@ task runChatGPT() {
                 println("POST BODY: " + postBody.toString())
                 println("API KEY: " + System.getenv('OPENAI_API_KEY'))
 
-                post = new URL("https://api.openai.com/v1/completions").openConnection();
+                def post = new URL("https://api.openai.com/v1/completions").openConnection();
                 post.setRequestMethod("POST")
                 post.setDoOutput(true)
                 post.setRequestProperty("Content-Type", "application/json")
 
                 post.setRequestProperty("Authorization", "Bearer " + System.getenv('OPENAI_API_KEY'))
                 post.getOutputStream().write(postBody.toString().getBytes("UTF-8"));
-        }
+        
 
         doLast {
                 def response = post.getInputStream().getText()
                 response = response.takeBetween("\"choices\":[{\"text\":\"\\n\\n", '\"', 0)
-
+                
+                file("${projectDir}/../cr, commitMessage + ".txt").text = response
                 println(response);
         }
 }
