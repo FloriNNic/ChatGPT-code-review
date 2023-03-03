@@ -20,7 +20,7 @@ task runChatGPT() {
                 def response = post.getInputStream().getText()
                 response = response.takeBetween("\"choices\":[{\"text\":\"\\n\\n", '\"', 0)
                 
-                file("${projectDir}/../cr", commitMessage + ".txt").text = response
+                file("${projectDir}/../cr", commitMessage.replaceAll( ' ', '_' ) + ".txt").text = response
                 println(response);
         }
 }
