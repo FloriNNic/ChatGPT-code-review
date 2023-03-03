@@ -1,11 +1,9 @@
 task runChatGPT() {
         def postBody = new groovy.json.JsonBuilder()
                 postBody prompt: ("Please review the commit " + commitUrl),
-                    max_tokens: 300,
-                    model: "text-davinci-003",
-                    temperature: 0.7
+                    model: "gpt-3.5-turbo"
 
-                def post = new URL("https://api.openai.com/v1/completions").openConnection();
+                def post = new URL("https://api.openai.com/v1/chat/completions").openConnection();
                 post.setRequestMethod("POST")
                 post.setDoOutput(true)
                 post.setRequestProperty("Content-Type", "application/json")
@@ -14,6 +12,7 @@ task runChatGPT() {
         
         doLast {
                 def response = post.getInputStream().getText()
+                println(response);
                 response = response.takeBetween("\"choices\":[{\"text\":\"\\n\\n", '\"', 0)
                 
                 file("${projectDir}/../cr/" + commitMessage + ".txt").text = response
