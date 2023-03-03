@@ -1,7 +1,12 @@
 task runChatGPT() {
         def postBody = new groovy.json.JsonBuilder()
-                postBody messages: [{"role": "user", "content": ("Please review the commit " + commitUrl)}],
-                         model: "gpt-3.5-turbo"
+                postBody messages: [
+                        (
+                                role: 'user',
+                                content: ("Please review the commit " + commitUrl)
+                        )
+                        ]
+                         model: 'gpt-3.5-turbo'
 
                 def post = new URL("https://api.openai.com/v1/chat/completions").openConnection();
                 post.setRequestMethod("POST")
