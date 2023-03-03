@@ -12,7 +12,6 @@ task runChatGPT() {
                 post.setRequestMethod("POST")
                 post.setDoOutput(true)
                 post.setRequestProperty("Content-Type", "application/json")
-
                 post.setRequestProperty("Authorization", "Bearer " + System.getenv('OPENAI_API_KEY'))
                 post.getOutputStream().write(postBody.toString().getBytes("UTF-8"));
         
